@@ -1,0 +1,28 @@
+﻿####Fallstudie für die Datenbankfunktionalitäten####
+
+Ziel: In der Fallstudie werden Funktionalitäten und Daten der ZeitreihenDB, RasterDB, ProjektDB und VAT verwendet um einen Workflow zu modellieren , der die Bestandstemperatur auf Grundlage vom Blattflächenindex (LAI) und Klimastationsdaten schätzt. Die verwendete Transferfunktion  wird auf die gesamte Fläche des MOF angewendet um die Bestandstemperatur räumlich zu modellieren. Das Ergebnis soll als Rasterdatenebene  sowie für ausgewählte Waldstrukturplots visualisiert werden. 
+
+Nutzerverwaltung: 
+    • Einloggen und Verwalten eines Nutzers mit spezifischer Rolle ( Scientist, Student, Citizen)
+    • Speichern, Laden und Manipulieren (Klonen) des Workflows inkl. Metadaten in die ProjektDB/VAT 
+      
+Datensätze und benutzerdefinierte Funktionen:
+    • Zeitreihen der zwei Klimastationen  (TubeDB)
+    • Lidar Daten inkl. abgeleiteter Rasterdatensätze (RasterDB)
+    • Tabelle mit Waldstrukturplots (ProjektDB)
+    • R-Funktion “ forestT” (Github)
+
+Workflow:
+Datenprozessierung und Modellierung:
+    • Flächendeckende Berechnung des LAI aus den Lidar-Daten in 2 m x 2 m räumlicher Auflösung für den MOF.
+    • Bereitstellung der Montasmitteltemperatur im Juni und Juli 2018 von den  zwei Klimastationen.
+    • Extraktion des LAI für die Lage der Klimastationen.
+    • Anwendung der R-Funktion “forestT ”, die ein lineares Modell aufstellt, welches flächendeckend aus dem LAI die Monatsmitteltemperatur schätzt. Eingangsparameter sind die gemessenen Temperaturen und der LAI an den Klimastationen sowie das LAI Raster. Die Funktion gibt ein Raster der modellierten Bestandstemperaturen zurück.
+    • Extraktion der modellierten Bestandstemperaturen für die Waldstrukturplots mit einem 10 m x 10 m Puffer.
+    • Berechnung deskriptive Statistik und Visualisierung der Waldstrukturplots.
+
+Datenvisualisierung:
+    • Verfügbarkeit des Workflows für berechtigte Nutzer/Rollen zur automatischen Ausführung und weiteren Bearbeitung.
+    • Visualisierung des modellierten Temperaturrasters in der Projektion ETRS89 UTM mit der “viridis” Farbpalette
+    • Visualisierung der extrahierten Bestandstemperaturen der Waldstrukturplots.
+      
