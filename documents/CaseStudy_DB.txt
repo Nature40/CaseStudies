@@ -25,4 +25,43 @@ Datenvisualisierung:
     • Verfügbarkeit des Workflows für berechtigte Nutzer/Rollen zur automatischen Ausführung und weiteren Bearbeitung.
     • Visualisierung des modellierten Temperaturrasters in der Projektion ETRS89 UTM mit der “viridis” Farbpalette
     • Visualisierung der extrahierten Bestandstemperaturen der Waldstrukturplots.
-      
+
+---------------------
+
+Technische Umsetzung Benutzerverwaltung:
+
+Da ProjektDB allgemeine Informationen zu Natur 4.0 enthält, sollte hier der zentrale Login für die Benutzer ausgeführt werden.
+Alternativ könnte VAT (vorübergehend) das zentrale Login übernehmen, falls dadurch der Usecase besser zeitnah umgesetzt werden kann (falls dort eine entsprechende Benutzerverwaltung existiert).
+VAT ist die zentrale Instanz für Workflows.
+
+Problemstellung "Single Sign-on":
+
+ProjektDB --> TubeDB (weitgehend fertiggestellt, mit reverse Proxy in ProjektDB)
+ProjektDB --> RasterDB (weitgehend fertiggestellt, mit reverse Proxy in ProjektDB)
+ProjektDB --> VAT (eine reverse Proxy Lösung ist hier vermutlich nicht einfach umsetzbar, gibt es eine Umsetzung / Erfahrung mit "echtem" Single Sign-on?)
+
+VAT --> TubeDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung über einen VAT-Account in TubeDB)
+VAT --> RasterDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung über einen VAT-Account in RasterDB)
+
+
+Technische Umsetzung Workflow:
+
+- Flächendeckende Berechnung des LAI: Vorberechnung und Speicherung in RasterDB, Raster-Abfrage (VAT --> RasterDB)
+
+- Bereitstellung der Montasmitteltemperatur: CSV-Abfrage (VAT --> TubeDB)
+
+- Extraktion des LAI für die Lage der Klimastationen: drei Möglichkeiten:
+    - eingrenzende Abfrage auf dem vorberechneten Raster in RasterDB
+    - eingrenzende Abfrage in VAT auf dem in VAT zwischengespeicherten flächendeckenden Raster aus der Abfrage von RasterDB
+    - on-demand Berechnung in RasterDB des LAI an den Positionen der Klimastationen
+
+- weitere Berechnungen werden von VAT ausgeführt
+
+- eventuell werden Rasterergebnisse in RasterDB gespeichert (Visualisierung, Export für Benutzer) (VAT --> RasterDB)
+
+  
+API Details:
+
+Montasmitteltemperatur (CSV): [SERVER]/tsdb/query_csv?plot=CaldernWald&sensor=Ta_200&aggregation=month&interpolated=false&quality=empirical&year=2017&month=8
+
+Rasterausschnitt (GeoTIFF): [SERVER]/rasterdb/muf_rasterized/raster.tiff?ext=478180.6573486328%205632365.927375099%20478196.2240600586%205632380.117438575&band=5
