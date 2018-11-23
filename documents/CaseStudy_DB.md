@@ -32,15 +32,20 @@ Datenvisualisierung:
 
 Da ProjektDB allgemeine Informationen zu Natur 4.0 enthält, sollte hier der zentrale Login für die Benutzer ausgeführt werden.
 Alternativ könnte VAT (vorübergehend) das zentrale Login übernehmen, falls dadurch der Usecase besser zeitnah umgesetzt werden kann (falls dort eine entsprechende Benutzerverwaltung existiert).
+
 VAT ist die zentrale Instanz für Workflows.
 
 ## Problemstellung "Single Sign-on"
 
 ProjektDB --> TubeDB (weitgehend fertiggestellt, mit reverse Proxy in ProjektDB)
+
 ProjektDB --> RasterDB (weitgehend fertiggestellt, mit reverse Proxy in ProjektDB)
+
 ProjektDB --> VAT (eine reverse Proxy Lösung ist hier vermutlich nicht einfach umsetzbar, gibt es eine Umsetzung / Erfahrung mit "echtem" Single Sign-on?)
 
+
 VAT --> TubeDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung über einen VAT-Account in TubeDB)
+
 VAT --> RasterDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung über einen VAT-Account in RasterDB)
 
 
@@ -58,6 +63,10 @@ VAT --> RasterDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung üb
   
 ## API Details
 
-Montasmitteltemperatur (CSV): [SERVER]/tsdb/query_csv?plot=CaldernWald&sensor=Ta_200&aggregation=month&interpolated=false&quality=empirical&year=2017&month=8
+Montasmitteltemperatur (CSV):
 
-Rasterausschnitt (GeoTIFF): [SERVER]/rasterdb/muf_rasterized/raster.tiff?ext=478180.6573486328%205632365.927375099%20478196.2240600586%205632380.117438575&band=5
+`[SERVER]/tsdb/query_csv?plot=CaldernWald&sensor=Ta_200&aggregation=month&interpolated=false&quality=empirical&year=2017&month=8`
+
+Rasterausschnitt (GeoTIFF): 
+
+`[SERVER]/rasterdb/muf_rasterized/raster.tiff?ext=478180.6573486328%205632365.927375099%20478196.2240600586%205632380.117438575&band=5`
