@@ -85,20 +85,20 @@ VAT --> RasterDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung üb
 
 **Auflistung aller Raster-Layer (JSON):**
 
-[SERVER]/rasterdbs.json
+`[SERVER]/rasterdbs.json`
 
 **Metadaten eines Raster-Layers (extent, projection, u.a. JSON):**
 
-[SERVER]/rasterdb/[LAYER_NAME]/meta.json
+`[SERVER]/rasterdb/[LAYER_NAME]/meta.json`
 
 Metadaten des natur40_lai Layers:
 
-[SERVER]/rasterdb/natur40_lai/meta.json
+`[SERVER]/rasterdb/natur40_lai/meta.json`
 
 **Rasterausschnitt eines Raster-Layers (GeoTIFF):** 
 
-[SERVER]/rasterdb/natur40_lai/raster.tiff?ext=[XMIN]%20[YMIN]%20[XMAX]%20[YMAX]
+`[SERVER]/rasterdb/natur40_lai/raster.tiff?ext=[XMIN]%20[YMIN]%20[XMAX]%20[YMAX]`
 
 Gesamtes Raster des natur40_lai Layers (extent aus meta.json, *meta.ref.extent*): 
 
-[SERVER]/rasterdb/[LAYER_NAME]/raster.tiff?ext=476164%205631376%20478226%205632752
+`[SERVER]/rasterdb/[LAYER_NAME]/raster.tiff?ext=476164%205631376%20478226%205632752`
