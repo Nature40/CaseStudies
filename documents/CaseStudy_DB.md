@@ -62,11 +62,43 @@ VAT --> RasterDB (nur API Zugriff notwendig, einfache HTTP-Authentifizierung üb
 
   
 ## API Details
+*(Fokussiert auf Aspekte zur Umsetzung der Fallstudie)*
 
-Montasmitteltemperatur (CSV):
+### TubeDB
+*(Server URL in der initialen Email)*
+
+**Authentifizierung**
+* HTTP digest authentication *(Account in der initialen Email)*
+* oder IP based authentication *(Freischaltung der IP des VAT-Servers)*
+
+**Montasmitteltemperatur (CSV)**
 
 `[SERVER]/tsdb/query_csv?plot=CaldernWald&sensor=Ta_200&aggregation=month&interpolated=false&quality=empirical&year=2017&month=8`
 
-Rasterausschnitt (GeoTIFF): 
 
-`[SERVER]/rasterdb/muf_rasterized/raster.tiff?ext=478180.6573486328%205632365.927375099%20478196.2240600586%205632380.117438575&band=5`
+### RasterDB
+*(Server URL in der initialen Email)*
+
+**Authentifizierung:**
+* HTTP digest authentication *(Account in der initialen Email)*
+* oder IP based authentication *(Freischaltung der IP des VAT-Servers)*
+
+**Auflistung aller Raster-Layer (JSON):**
+
+[SERVER]/rasterdbs.json
+
+**Metadaten eines Raster-Layers (extent, projection, u.a. JSON):**
+
+[SERVER]/rasterdb/[LAYER_NAME]/meta.json
+
+Metadaten des natur40_lai Layers:
+
+[SERVER]/rasterdb/natur40_lai/meta.json
+
+**Rasterausschnitt eines Raster-Layers (GeoTIFF):** 
+
+[SERVER]/rasterdb/natur40_lai/raster.tiff?ext=[XMIN]%20[YMIN]%20[XMAX]%20[YMAX]
+
+Gesamtes Raster des natur40_lai Layers (extent aus meta.json, *meta.ref.extent*): 
+
+[SERVER]/rasterdb/[LAYER_NAME]/raster.tiff?ext=476164%205631376%20478226%205632752
